@@ -1,28 +1,50 @@
+/* Packages */
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+/* Sub Components */
+import { Background, Camera, List, Microphone } from './components';
+
+/* Component */
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.props = props;
+        this.state = {
+            micData: null,
+        };
+
+        this.timer = null;
+        this.onMic = this.onMic.bind(this);
+    }
+
+    /**
+     * onMic
+     */
+    onMic(data) {
+        if (this.timer) {
+            return;
+        }
+
+        this.timer = setTimeout(() => {
+            this.setState({
+                micData: data,
+            }, () => {
+                this.timer = null;
+            });
+        }, 2000);
+    }
+
+    render() {
+        return (
+            <Background>
+                <Camera>
+                    <List />
+                    <Microphone audioBitsPerSecond={32000} />
+                </Camera>
+            </Background>
+        );
+    }
 }
 
 export default App;

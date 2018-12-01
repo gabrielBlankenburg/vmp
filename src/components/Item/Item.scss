@@ -1,0 +1,44 @@
+$this: ".item";
+
+#{$this} {
+    z-index: 20;
+    color  : white;
+
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+
+    @include flex();
+    flex-direction: column;
+
+    &__primary {
+        margin: 0 auto 40px;
+
+        @include font(220px, 180px, 800);
+
+        text-transform: lowercase;
+    }
+
+    &__secondary {
+        @include font(80px, 1, 800);
+
+        color: rgba(255, 255, 255, 0.75);
+
+        text-transform: uppercase;
+    }
+
+    &__concat {
+        position: relative;
+        z-index: -1;
+        @include font (400px, 55px);
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    @include xs {
+        &__primary {
+            @include font(110px);
+        }
+
+        &__secondary {
+            @include font(40px);
+        }
+    }
+}
