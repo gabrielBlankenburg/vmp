@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 /* Services */
-import { ls } from '../../services';
+import { ls, ss } from '../../services';
 
 /* Components */
 import { Item } from '../';
@@ -25,8 +25,33 @@ class List extends Component {
             bottom: ls.get('bottom'),
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.toggle       = this.toggle.bind(this);
+        this.handleChange     = this.handleChange.bind(this);
+        this.toggle           = this.toggle.bind(this);
+        this.topChangeData    = this.topChangeData.bind(this);
+        this.middleChangeData = this.middleChangeData.bind(this);
+        this.bottomChangeData = this.bottomChangeData.bind(this);
+
+        ss.listenSocket({
+            top: this.topChangeData, 
+            middle: this.middleChangeData, 
+            bottom: this.bottomChangeData
+        });
+    }
+
+    topChangeData(data) {
+        this.setState({
+            top: data
+        });
+    }
+    middleChangeData(data) {
+        this.setState({
+            middle: data
+        });
+    }
+    bottomChangeData(data) {
+        this.setState({
+            bottom: data
+        });
     }
 
     componentWillMount() {
@@ -67,42 +92,6 @@ class List extends Component {
                         <div dangerouslySetInnerHTML={{ __html: middle ? middle.replace(/\r?\n/, '<br />').replace('&', concatAnd).replace('+', concatPlus) : middle }} />
                     </Item>
                 </div>
-                <div className={`list__panel ${active ? 'active' : ''}`}>
-                    <div className="list__item">
-                        <div> FILL to SCREEN </div>
-                        <div>
-                            <input className="list__item__control"
-                                   placeholder="top text"
-                                   type="text"
-                                   name="top"
-                                   value={top}
-                                   onChange={this.handleChange}
-                            />
-                        </div>
-                        <div>
-                            <textarea className="list__item__control"
-                                      placeholder="middle text"
-                                      name="middle"
-                                      value={middle}
-                                      onChange={this.handleChange}
-                            />
-                        </div>
-                        <div>
-                            <input className="list__item__control"
-                                   placeholder="bottom text"
-                                   type="text"
-                                   name="bottom"
-                                   value={bottom}
-                                   onChange={this.handleChange}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <button className="list__toggle"
-                        type="button"
-                        onClick={this.toggle}>
-                    {active ? 'CLOSE' : 'EDIT'}
-                </button>
             </div>
         );
     }
