@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "author": "@udimberto",
-  "homepage": "https://udimberto.github.io/vmp",
+  "homepage": "https://gabrielblankenburg.github.io/vmp",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-camera": "^0.1.3",
